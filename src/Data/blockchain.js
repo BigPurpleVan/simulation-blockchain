@@ -1,37 +1,37 @@
-const dayjs = require('dayjs')
-const Log = require('./log')
-const Block = require('./block')
-const Transaction = require('./transaction')
-const { KeyGenerator } = require('./signature')
+const dayjs = require('dayjs') // Importe la bibliothèque dayjs pour manipuler les dates
+const Log = require('./log') // Importe le module de journalisation personnalisé
+const Block = require('./block') // Importe la classe Block
+const Transaction = require('./transaction') // Importe la classe Transaction
+const { KeyGenerator } = require('./signature') // Importe le générateur de clés pour la signature
 
+// Définit la classe Blockchain
 class Blockchain {
   /**
-   * Create a Blockchain
+   * Crée une nouvelle blockchain
    */
   constructor() {
-    Log.add('[Blockchain] Init')
+    Log.add('[Blockchain] Init') // Ajoute un message de journalisation pour l'initialisation
 
-    //
+    // Définit la difficulté du proof of work et la récompense de minage
     this.blockProofOfWorkDifficulty = 2
     this.blockMineReward = 1
 
-    //
+    // Initialise la chaîne et les transactions en attente
     this.chain = []
     this.pendingTransactions = []
 
-    // system
+    // Génère une clé pour le système et l'ajoute au journal
     Log.add('[Blockchain] Generating key for system')
     this.system = new KeyGenerator().generate()
     Log.add('[Blockchain] Generate complete', this.system)
-    // console.log(Log)
 
-    // create a genesis block
+    // Crée le bloc genesis et l'ajoute à la chaîne
     Log.add('[Blockchain] Generate genesis block')
     this.chain.push(new Block([], dayjs().toDate(), '0'))
   }
 
   /**
-   * Get the last block of the blockchain
+   * Récupère le dernier bloc de la blockchain
    * @returns {Block}
    */
   getLastBlock() {
@@ -39,35 +39,36 @@ class Blockchain {
   }
 
   /**
-   * Add a new block to the blockchain
+   * Ajoute un nouveau bloc à la blockchain
    *
    * @param  {Block} block
    * @return {void}
    */
   addBlock(block) {
-    block.previousHash = this.getLastBlock().hash
-    block.hash = block.calculateHash()
-    this.chain.push(block)
+    block.previousHash = this.getLastBlock().hash // Définit le hachage précédent du bloc
+    block.hash = block.calculateHash() // Calcule le nouveau hachage du bloc
+    this.chain.push(block) // Ajoute le bloc à la chaîne
   }
 
   /**
-   * Add a new transaction to the blockchain
+   * Ajoute une nouvelle transaction à la blockchain
    * @param  {Transaction} transaction
    * @return {void}
    */
   addTransaction(transaction) {
-    Log.add(`[Blockchain] Adding new transaction`, transaction)
-    this.pendingTransactions.push(transaction)
+    Log.add(`[Blockchain] Adding new transaction`, transaction) // Journalise l'ajout de la transaction
+    this.pendingTransactions.push(transaction) // Ajoute la transaction aux transactions en attente
   }
 
   /**
-   * Mine the blockchain
+   * Mine la blockchain
    * @param  {string} mineAddress
    * @returns {Promise}
    */
   mine(mineAddress) {
-    Log.add(`[Blockchain] Starting mining with miner ${mineAddress}`)
+    Log.add(`[Blockchain] Starting mining with miner ${mineAddress}`) // Journalise le début du minage
     return new Promise((resolve, reject) => {
+      // Ajoute une transaction de récompense pour le mineur
       this.addTransaction(
         new Transaction(
           this.system.publicKey,
@@ -75,24 +76,25 @@ class Blockchain {
           this.blockMineReward
         ).sign(this.system.privateKey)
       )
-      const block = new Block(this.pendingTransactions, dayjs().toDate())
-      block.previousHash = this.getLastBlock().hash
+      const block = new Block(this.pendingTransactions, dayjs().toDate()) // Crée un nouveau bloc avec les transactions en attente
+      block.previousHash = this.getLastBlock().hash // Définit le hachage précédent du bloc
 
+      // Mine le bloc avec la difficulté définie
       block.mine(this.blockProofOfWorkDifficulty).then(() => {
-        this.chain.push(block)
-        this.pendingTransactions = []
-        Log.add(`[Blockchain] Mining complete`)
-        resolve(this)
+        this.chain.push(block) // Ajoute le bloc miné à la chaîne
+        this.pendingTransactions = [] // Réinitialise les transactions en attente
+        Log.add(`[Blockchain] Mining complete`) // Journalise la fin du minage
+        resolve(this) // Résout la promesse avec la blockchain mise à jour
       })
     })
   }
 
   /**
-   * Check if the blockchain is valid
+   * Vérifie si la blockchain est valide
    * @returns {boolean}
    */
   isValid() {
-    // check every has in block
+    // Vérifie chaque bloc et chaque transaction pour s'assurer de la validité de la chaîne
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i]
       const previousBlock = this.chain[i - 1]
@@ -100,7 +102,7 @@ class Blockchain {
       if (currentBlock.previousHash !== previousBlock.hash) return false
       if (currentBlock.hash !== currentBlock.calculateHash()) return false
 
-      // check every transaction in block
+      // Vérifie la validité de chaque transaction dans le bloc
       for (let i = 1; i < this.chain.length; i++) {
         const transactions = this.chain[i].data
         for (let j = 0; j < transactions.length; j++) {
@@ -109,37 +111,38 @@ class Blockchain {
       }
     }
 
-    //
+    // Retourne vrai si toutes les vérifications sont passées
     return true
   }
 
   /**
-   * Get balance of a given address
+   * Obtient le solde d'une adresse donnée
    * @param  {string} address
    */
   getBalance(address) {
-    let balance = 0
+    let balance = 0 // Initialise le solde à 0
+    // Parcourt chaque bloc et chaque transaction pour calculer le solde
     for (let i = 0; i < this.chain.length; i++) {
       const block = this.chain[i]
       for (let j = 0; j < block.data.length; j++) {
         const transaction = block.data[j]
         if (transaction.fromAddress === address) {
-          balance -= transaction.amount
+          balance -= transaction.amount // Soustrait le montant si l'adresse est l'expéditeur
         }
         if (transaction.toAddress === address) {
-          balance += transaction.amount
+          balance += transaction.amount // Ajoute le montant si l'adresse est le destinataire
         }
       }
     }
-    return balance
+    return balance // Retourne le solde calculé
   }
 
   /**
-   * Print the blockchain
+   * Imprime la blockchain
    */
   print() {
-    // console.log(JSON.stringify(this.chain, null, 4))
+    // console.log(JSON.stringify(this.chain, null, 4)) // Imprime la chaîne au format JSON
   }
 }
 
-module.exports = Blockchain
+module.exports = Blockchain // Exporte la classe Blockchain

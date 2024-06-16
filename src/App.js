@@ -10,35 +10,47 @@ import Settings from "./Pages/Settings";
 import {SunIcon} from "./Icons/SunIcon.jsx"
 import {MoonIcon} from "./Icons/MoonIcon.jsx"
 
+// Importe les modules nécessaires pour la blockchain, les transactions et la génération de clés
 const Blockchain = require('./Data/blockchain')
 const Transaction = require('./Data/transaction')
 const { KeyGenerator } = require('./Data/signature')
 
-//Creation de la blockchain exemple
+// Crée une instance de la blockchain pour l'exemple
 export const exchain = new Blockchain()
-exchain.blockProofOfWorkDifficulty = 3
 
-//Creation de l'adresse d'un mineur
+// Génère une adresse publique pour un mineur en utilisant KeyGenerator et l'exporte
 export const minorAddress = new KeyGenerator().generate().publicKey
 
-//Creation du wallet example et de la liste des wallets
+// Initialise et exporte une liste vide pour stocker les portefeuilles
 export const wallets = []
-export const newWallet = (name, balance = 0) =>{
+
+// Définit et exporte une fonction pour créer un nouveau portefeuille
+export const newWallet = (name, balance = 0) => {
+  // Génère une nouvelle paire de clés pour le portefeuille
   let wallet = (new KeyGenerator()).generate()
+  // Crée une transaction initiale pour créditer le portefeuille avec 1000 unités
+  // en utilisant la clé privée du système pour signer la transaction
   new Transaction(exchain.system.publicKey, wallet.publicKey, 1000).sign(exchain.system.privateKey)
+  // Mine un nouveau bloc pour inclure la transaction précédente
   exchain.mine(minorAddress)
+  // Ajoute le nouveau portefeuille à la liste des portefeuilles avec son nom, clés et solde
   wallets.push({
     name: name,
     privateKey: wallet.privateKey,
     publicKey: wallet.publicKey,
-    balance: exchain.getBalance(wallet.publicKey)
+    balance: exchain.getBalance(wallet.publicKey) // Récupère le solde actuel du portefeuille
   })
 }
-newWallet('Mon Wallet');
-const systemTransaction = (new Transaction(exchain.system.publicKey, wallets[0].publicKey, 1000)).sign(exchain.system.privateKey)
-wallets[0].balance = exchain.getBalance(wallets[0].publicKey)
-exchain.addTransaction(systemTransaction)
 
+// Crée un exemple de portefeuille nommé 'Mon Wallet'
+newWallet('Mon Wallet');
+
+// Crée une transaction système pour créditer le premier portefeuille de la liste avec 1000 unités
+const systemTransaction = (new Transaction(exchain.system.publicKey, wallets[0].publicKey, 1000)).sign(exchain.system.privateKey)
+// Met à jour le solde du premier portefeuille dans la liste après la transaction
+wallets[0].balance = exchain.getBalance(wallets[0].publicKey)
+// Ajoute la transaction système à la liste des transactions en attente de la blockchain
+exchain.addTransaction(systemTransaction)
 
 
 

@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {exchain} from '../App.js'
 import { Card, CardBody, CardFooter, CardHeader, Spacer} from '@nextui-org/react'
 
-export default class Blocks extends Component {
-  render() {
+export default function Blocks() {
     return (
       <div>
         <h2 className='text-xl font-bold m-3'>Blocks enregistrées dans la blockchain</h2>
@@ -11,7 +10,7 @@ export default class Blocks extends Component {
             {exchain.chain.map((block, index) => {
                 return (
                   <>
-                  <Card className='max-w-96 whitespace-nowrap '>
+                  <Card className='max-w-96 whitespace-nowrap ' onPress={showBlock}>
                       <CardHeader>
                         <h3 className='text-lg font-bold'>Block {index}</h3>
                       </CardHeader>
@@ -32,5 +31,4 @@ export default class Blocks extends Component {
         </div>
       </div>
     )
-  }
 }
