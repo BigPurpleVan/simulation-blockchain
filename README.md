@@ -4,7 +4,7 @@ Un petit emulateur de blockchain qui tourne sur navigateur, a simple but d'illus
 
 ## Disclamer
 
-Ce travail est basé sur le travail de [viandwi24](https://github.com/viandwi24/blockchain-simulation), nous avons repris ses fichiers de simulation et avons recréer ma propre interface par dessus, un grand merci a lui.
+Ce travail est basé sur le travail de [viandwi24](https://github.com/viandwi24/blockchain-simulation), nous avons repris ses fichiers de simulation et avons recréer notre propre interface par dessus, un grand merci a lui.
 
 ## Installation Locale
 
