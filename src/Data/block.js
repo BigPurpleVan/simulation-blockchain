@@ -17,6 +17,7 @@ class Block {
     this.previousHash = previousHash // Hachage du bloc précédent
     this.hash = this.calculateHash() // Calcule le hachage du bloc
     this.nonce = 0 // Nonce utilisé pour le minage
+    this.transactions = [] // Initialise la liste des transactions
     this.options = {
       log: true // Option pour activer la journalisation
     }
@@ -37,7 +38,7 @@ class Block {
    * @param {number} difficulty - Le niveau de difficulté du processus de minage
    * @returns {Promise} Une promesse qui se résout lorsque le bloc est miné avec succès
    */
-  mine(difficulty = 2) {
+  mine(difficulty = 2, transactions = []) {
     return new Promise((resolve, reject) => {
       const start = Date.now() // Enregistre l'heure de début
       const intervalId = setInterval(() => {
@@ -50,6 +51,7 @@ class Block {
           clearInterval(intervalId) // Arrête le minage
           const end = Date.now() // Enregistre l'heure de fin
           const time = (end - start) / 1000 // Calcule le temps total de minage
+          this.transactions = transactions
           if (this.options.log) {
             console.log(`[Block] Minage du bloc - Succès en ${time}s avec nonce ${this.nonce}`) // Journalise le message de succès
             Log.add(`[Block] Minage du bloc - Succès en ${time}s avec nonce ${this.nonce}`) // Ajoute le message de succès au journal

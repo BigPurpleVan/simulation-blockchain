@@ -80,7 +80,7 @@ class Blockchain {
       block.previousHash = this.getLastBlock().hash // Définit le hachage précédent du bloc
 
       // Mine le bloc avec la difficulté définie
-      block.mine(this.blockProofOfWorkDifficulty).then(() => {
+      block.mine(this.blockProofOfWorkDifficulty, this.pendingTransactions).then(() => {
         this.chain.push(block) // Ajoute le bloc miné à la chaîne
         this.pendingTransactions = [] // Réinitialise les transactions en attente
         Log.add(`[Blockchain] Mining complete`) // Journalise la fin du minage

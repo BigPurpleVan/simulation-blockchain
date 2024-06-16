@@ -10,7 +10,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <NextUIProvider>
     <html className='min-h-screen' lang="en">
-      <script src="https://kit.fontawesome.com/96f6508de0.js" crossorigin="anonymous"></script>
       <App />
     </html>
   </NextUIProvider>
