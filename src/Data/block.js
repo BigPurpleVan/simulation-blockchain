@@ -51,7 +51,7 @@ class Block {
           clearInterval(intervalId) // Arrête le minage
           const end = Date.now() // Enregistre l'heure de fin
           const time = (end - start) / 1000 // Calcule le temps total de minage
-          this.transactions = transactions
+          this.transactions = transactions // Ajoute les transactions au bloc
           if (this.options.log) {
             console.log(`[Block] Minage du bloc - Succès en ${time}s avec nonce ${this.nonce}`) // Journalise le message de succès
             Log.add(`[Block] Minage du bloc - Succès en ${time}s avec nonce ${this.nonce}`) // Ajoute le message de succès au journal

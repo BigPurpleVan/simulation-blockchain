@@ -99,7 +99,7 @@ La méthode `calculateHash` calcule le hash du bloc en utilisant les données, l
 La méthode `mine` effectue le minage du bloc, c'est-à-dire la recherche d'un hash commençant par un certain nombre de zéros (défini par la difficulté).
 
 ```javascript
-  mine(difficulty = 2) {
+  mine(difficulty = 2, transactions = []) {
     return new Promise((resolve, reject) => {
       const start = Date.now()
       const intervalId = setInterval(() => {
@@ -112,6 +112,7 @@ La méthode `mine` effectue le minage du bloc, c'est-à-dire la recherche d'un h
           clearInterval(intervalId)
           const end = Date.now()
           const time = (end - start) / 1000
+        this.transactions = transactions
           if (this.options.log) {
             console.log(`[Block] Mining Block - Success in ${time}s with nonce ${this.nonce}`)
             Log.add(`[Block] Mining Block - Success in ${time}s with nonce ${this.nonce}`)
@@ -129,6 +130,7 @@ La méthode `mine` effectue le minage du bloc, c'est-à-dire la recherche d'un h
 - `nonce` est incrémenté à chaque itération.
 - Le hash est recalculé avec la nouvelle valeur de nonce.
 - Si le hash généré commence par le nombre requis de zéros (`difficulty`), le processus s'arrête et le bloc est considéré comme miné avec succès.
+- Finalement on récupère les transactions dans le blocs pour les archiver via l'array `this.transactions`
 
 #### Exportation de la Classe
 
@@ -239,7 +241,7 @@ Cette méthode ajoute une nouvelle transaction à la liste des transactions en a
 Cette méthode mine un bloc, c'est-à-dire qu'elle crée un nouveau bloc à partir des transactions en attente, et le récompense de minage est attribué à une adresse spécifique.
 
 ```javascript
-  mine(mineAddress) {
+  mine(mineAddress, , this.pendingTransactions) {
     Log.add(`[Blockchain] Starting mining with miner ${mineAddress}`)
     return new Promise((resolve, reject) => {
       this.addTransaction(
@@ -308,18 +310,6 @@ Cette méthode calcule le solde d'une adresse donnée en parcourant toutes les t
     return balance
   }
 ```
-
-##### Imprimer la Blockchain
-
-Cette méthode imprime la blockchain, ici commentée.
-
-```javascript
-  print() {
-    // console.log(JSON.stringify(this.chain, null, 4))
-  }
-}
-```
-
 #### Exportation de la Classe
 
 Enfin, la classe `Blockchain` est exportée pour être utilisée ailleurs dans le projet.
