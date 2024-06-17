@@ -6,8 +6,11 @@ Un petit emulateur de blockchain qui tourne sur navigateur, a simple but d'illus
 
 Ce travail est basé sur le travail de [viandwi24](https://github.com/viandwi24/blockchain-simulation), nous avons repris ses fichiers de simulation et avons recréer notre propre interface par dessus, un grand merci a lui.
 
-## Installation Locale
+## Lien du projet
 
+Pour voir le projet directement, vous pouvez clique sur le lien suivant : [Lien du projet](https://bigpurplevan.github.io/simulation-blockchain/)
+
+## Installation locale
 ```
 # Cloner le dépôt
 git clone https://github.com/BigPurpleVan/simulation-blockchain.git
