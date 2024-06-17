@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {NextUIProvider} from "@nextui-org/react";
 import { BrowserRouter, createBrowserRouter,RouterProvider,} from "react-router-dom";
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <NextUIProvider>
     <html className='min-h-screen' lang="en">

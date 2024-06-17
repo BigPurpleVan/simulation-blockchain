@@ -1,7 +1,7 @@
 {
   "name": "simulation-blockchain",
   "version": "0.1.0",
-  "homepage": "https://github.io/BigPurpleVan/simulation-blockchain",
+  "homepage": "https://bigpurplevan.github.io/simulation-blockchain/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
