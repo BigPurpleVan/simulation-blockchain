@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BigPurpleVan/simulation-blockchain/static/css/main.dead4f2f.css",
+    "main.js": "/BigPurpleVan/simulation-blockchain/static/js/main.4025d81c.js",
+    "static/js/453.2242c6aa.chunk.js": "/BigPurpleVan/simulation-blockchain/static/js/453.2242c6aa.chunk.js",
+    "index.html": "/BigPurpleVan/simulation-blockchain/index.html",
+    "main.dead4f2f.css.map": "/BigPurpleVan/simulation-blockchain/static/css/main.dead4f2f.css.map",
+    "main.4025d81c.js.map": "/BigPurpleVan/simulation-blockchain/static/js/main.4025d81c.js.map",
+    "453.2242c6aa.chunk.js.map": "/BigPurpleVan/simulation-blockchain/static/js/453.2242c6aa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dead4f2f.css",
+    "static/js/main.4025d81c.js"
+  ]
+}
