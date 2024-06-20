@@ -98,13 +98,6 @@ function App() {
             </CardBody>
           </Card>
         </Tab>
-        <Tab title="Nodes">
-          <Card>
-            <CardBody>
-              <Nodes />
-            </CardBody>
-          </Card>
-        </Tab>
         <Tab title="Parametres">
           <Card>
             <CardBody>
