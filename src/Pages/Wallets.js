@@ -44,6 +44,7 @@ export default function Wallets (){
             <Input className='w-1/3' type="number" defaultValue='0' id="BalanceInput" />
             <Spacer x={4} />
             <Button className='w-1/8' onClick={() => {
+              document.getElementById('NameInput').value === "" ? alert("Veuillez entrer un nom"):
               newWallet(document.getElementById("NameInput").value)
               reset()
             }}>Créer un wallet</Button>
