@@ -1,6 +1,6 @@
 import React from 'react'
 import {exchain, minorAddress} from '../App.js'
-import { Button, Spacer, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/react'
+import { Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/react'
 
 export default function Pending(){
     const mineBlock = () => {

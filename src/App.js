@@ -5,7 +5,6 @@ import Blocks from "./Pages/Blocks";
 import Wallets from "./Pages/Wallets";
 import Pending from "./Pages/Pending";
 import Transactions from "./Pages/Transactions";
-import Nodes from "./Pages/Nodes";
 import Settings from "./Pages/Settings"; 
 import {SunIcon} from "./Icons/SunIcon.jsx"
 import {MoonIcon} from "./Icons/MoonIcon.jsx"
@@ -59,7 +58,7 @@ function App() {
   const [isDark, setIsDark] = useState(true)
   const [theme, setTheme] = useState("dark")
   return (
-    <body className= {theme +" text-foreground bg-background min-h-screen"}>
+    <div className= {theme +" text-foreground bg-background min-h-screen"}>
     <Switch
       size="lg"
       color="secondary"
@@ -106,7 +105,7 @@ function App() {
           </Card>
         </Tab>
       </Tabs>
-    </body>
+    </div>
   );
 }
 
