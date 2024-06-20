@@ -1,6 +1,7 @@
 import React from 'react'
 import {exchain, minorAddress} from '../App.js'
 import { Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/react'
+import Mining from './Mining.js'
 
 export default function Pending(){
     const mineBlock = () => {
@@ -40,10 +41,14 @@ export default function Pending(){
             })}
         </div>
         <div>
-          <Button onPress={mineBlock}>
+          <Button onPress={()=>{
+            if(exchain.pendingTransactions.length === 0){
+              alert('Pas de blocs a miner')
+              }else{mineBlock()}}}>
             Miner le prochain block
           </Button>
         </div>
+        <Mining/>
       </div>
     )
 
