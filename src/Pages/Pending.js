@@ -1,6 +1,6 @@
 import React from 'react'
 import {exchain, minorAddress} from '../App.js'
-import { Button, Spacer } from '@nextui-org/react'
+import { Button, Spacer, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/react'
 
 export default function Pending(){
     const mineBlock = () => {
@@ -12,32 +12,31 @@ export default function Pending(){
         <div>
             {exchain.pendingTransactions.map((transaction, index) => {
                 return (
-                  <div key={index}>
-                    <table>
-                      <tr>
-                        <th>Transaction {index}</th>
-                      </tr>
-                      <tr>
-                        <td>Source:</td>
-                        <td>{transaction.fromAddress}</td>
-                      </tr>
-                      <tr>
-                        <td>Destinataire:</td>
-                        <td>{transaction.toAddress}</td>
-                      </tr>
-                      <tr>
-                        <td>Montant:</td>
-                        <td>{transaction.amount}</td>
-                      </tr>
-                      <tr>
-                        <td>Timestamp:</td>
-                        <td>{transaction.timestamp}</td>
-                      </tr>
-                    </table>
-                    <Spacer y={4} />
-                  </div>
+                  <Table>
+                    <TableHeader>
+                      <TableColumn>Transaction {index}</TableColumn>
+                      <TableColumn></TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Source</TableCell>
+                        <TableCell>{transaction.fromAddress}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Destination</TableCell>
+                        <TableCell>{transaction.toAddress}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Montant</TableCell>
+                        <TableCell>{transaction.amount}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Date</TableCell>
+                        <TableCell>{new Date(transaction.timestamp*1000).toLocaleString()}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 )
-                
             })}
         </div>
         <div>

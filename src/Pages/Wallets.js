@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {wallets, exchain, newWallet} from '../App';
-import {Input, Button, Spacer} from "@nextui-org/react";
+import {Input, Button, Spacer, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
+
 
 
 export default function Wallets (){
@@ -8,30 +9,32 @@ export default function Wallets (){
     const reset = () => {
         setSeed(Math.random());
     }
+    console.log(wallets)
     return (
-      <div>
+      <div key={seed}>
         <h2 className='text-xl font-bold m-3' >Wallets</h2>
           {wallets.map((wallet, index) => {
             return (
-              <table className='flex flex-col' key={seed}>
-                <tr>
-                  <th>Nom :</th>
-                  <td>{wallet.name}</td>
-                </tr>
-                <tr>
-                  <th className='mr-0.5'>Clé publique :</th>
-                  <td>{wallet.publicKey}</td>
-                </tr>
-                <tr>
-                  <th>Clé privée :</th>
-                  <td>{wallet.privateKey}</td>
-                </tr>
-                <tr>
-                  <th>Balance :</th>
-                  <td>{exchain.getBalance(wallet.publicKey)}</td>
-                </tr>
-                <Spacer y={4} />
-              </table>
+              <Table className='flex flex-col'>
+                <TableHeader>
+                  <TableColumn>Wallet {index}</TableColumn>
+                  <TableColumn></TableColumn>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Nom</TableCell>
+                    <TableCell>{wallet.name}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Adresse</TableCell>
+                    <TableCell>{wallet.publicKey}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Solde</TableCell>
+                    <TableCell>{exchain.getBalance(wallet.publicKey)}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             )
           })}
    
