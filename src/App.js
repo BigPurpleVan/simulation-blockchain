@@ -27,11 +27,14 @@ export const wallets = []
 export const newWallet = (name, balance = 0) => {
   // Génère une nouvelle paire de clés pour le portefeuille
   let wallet = (new KeyGenerator()).generate()
-  // Crée une transaction initiale pour créditer le portefeuille avec 1000 unités
-  // en utilisant la clé privée du système pour signer la transaction
-  new Transaction(exchain.system.publicKey, wallet.publicKey, 1000).sign(exchain.system.privateKey)
-  // Mine un nouveau bloc pour inclure la transaction précédente
-  exchain.mine(minorAddress)
+
+  if (balance > 0){      // Crée une transaction initiale pour créditer le portefeuille avec nombre defini d'unités
+    // en utilisant la clé privée du système pour signer la transaction
+    new Transaction(exchain.system.publicKey, wallet.publicKey, balance).sign(exchain.system.privateKey)
+    // Mine un nouveau bloc pour inclure la transaction précédente
+    exchain.mine(minorAddress)
+  }
+
   // Ajoute le nouveau portefeuille à la liste des portefeuilles avec son nom, clés et solde
   wallets.push({
     name: name,

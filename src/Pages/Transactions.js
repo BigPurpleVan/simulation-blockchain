@@ -16,7 +16,7 @@ export default function Transactions () {
     // Récupère le montant à envoyer depuis le champ de saisie du formulaire
     let amount = e.target.amount.value
     // Ajoute la nouvelle transaction à la liste des transactions en attente de la blockchain
-    exchain.addTransaction(new Transaction(sendAdress, destinationAddress, amount)).sign(wallets[0].privateKey)
+    exchain.addTransaction(new Transaction(sendAdress, destinationAddress, amount).sign(wallets[0].privateKey))
     // Affiche dans la console les transactions en attente pour vérification
     console.log(exchain.pendingTransactions)
   }
