@@ -1,6 +1,6 @@
 const dayjs = require('dayjs') // Importe la bibliothèque dayjs pour manipuler les dates
 const Log = require('./log') // Importe le module de journalisation personnalisé
-const Block = require('./block') // Importe la classe Block
+const {Block} = require('./block') // Importe la classe Block
 const Transaction = require('./transaction') // Importe la classe Transaction
 const { KeyGenerator } = require('./signature') // Importe le générateur de clés pour la signature
 

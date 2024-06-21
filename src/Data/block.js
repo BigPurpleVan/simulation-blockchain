@@ -2,6 +2,9 @@ const SHA256 = require('crypto-js/sha256') // Importe la fonction de hachage SHA
 const dayjs = require('dayjs') // Importe la bibliothèque dayjs pour la manipulation des dates
 const Log = require('./log') // Importe le module Log personnalisé pour la journalisation
 
+let hashVisualiser = '' // Initialise la variable pour afficher le hachage dans l'interface graphique
+const emptyFunction = () => {} // Fonction vide pour éviter les erreurs
+
 // Définit la classe Block
 class Block {
   /**
@@ -44,9 +47,11 @@ class Block {
       const intervalId = setInterval(() => {
         const current = Date.now() // Obtient l'heure actuelle
         this.nonce++ // Incrémente le nonce
+        document.getElementById("nonceResult") === null ? emptyFunction() : document.getElementById("hashResult").innerText = this.hash
         this.hash = this.calculateHash() // Recalcule le hachage avec le nouveau nonce
         const currentTime = Math.floor((current - start) / 1000) // Calcule le temps écoulé en secondes
         if (this.options.log) console.log(`[Block] Minage du bloc - hachage généré et trouvé ${this.hash} | ${currentTime}s | nonce ${this.nonce}`) // Journalise la progression du minage
+        document.getElementById("hashResult") === null ? emptyFunction() : document.getElementById("hashResult").innerText = this.hash
         if (this.hash.slice(0, difficulty) === '0'.repeat(difficulty)) { // Vérifie si le hachage répond aux critères de difficulté
           clearInterval(intervalId) // Arrête le minage
           const end = Date.now() // Enregistre l'heure de fin
@@ -63,4 +68,4 @@ class Block {
   }
 }
 
-module.exports = Block // Exporte la classe Block
+module.exports = {Block, hashVisualiser} // Exporte la classe Block et la variable hashVisualiser
