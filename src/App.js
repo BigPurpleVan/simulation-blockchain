@@ -27,10 +27,10 @@ export const wallets = []
 export const newWallet = (name, balance = 0) => {
   // Génère une nouvelle paire de clés pour le portefeuille
   let wallet = (new KeyGenerator()).generate()
-
+  console.log(balance)
   if (balance > 0){      // Crée une transaction initiale pour créditer le portefeuille avec nombre defini d'unités
     // en utilisant la clé privée du système pour signer la transaction
-    new Transaction(exchain.system.publicKey, wallet.publicKey, balance).sign(exchain.system.privateKey)
+    exchain.addTransaction(new Transaction(exchain.system.publicKey, wallet.publicKey, balance).sign(exchain.system.privateKey))
     // Mine un nouveau bloc pour inclure la transaction précédente
     exchain.mine(minorAddress)
   }
@@ -45,14 +45,7 @@ export const newWallet = (name, balance = 0) => {
 }
 
 // Crée un exemple de portefeuille nommé 'Mon Wallet'
-newWallet('Mon Wallet');
-
-// Crée une transaction système pour créditer le premier portefeuille de la liste avec 1000 unités
-const systemTransaction = (new Transaction(exchain.system.publicKey, wallets[0].publicKey, 1000)).sign(exchain.system.privateKey)
-// Met à jour le solde du premier portefeuille dans la liste après la transaction
-wallets[0].balance = exchain.getBalance(wallets[0].publicKey)
-// Ajoute la transaction système à la liste des transactions en attente de la blockchain
-exchain.addTransaction(systemTransaction)
+newWallet('Mon Wallet', 1000);
 
 
 
