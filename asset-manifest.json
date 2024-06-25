@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/simulation-blockchain/static/css/main.b1c2fa51.css",
+    "main.js": "/simulation-blockchain/static/js/main.4a56f16a.js",
+    "static/js/453.2242c6aa.chunk.js": "/simulation-blockchain/static/js/453.2242c6aa.chunk.js",
+    "index.html": "/simulation-blockchain/index.html",
+    "main.b1c2fa51.css.map": "/simulation-blockchain/static/css/main.b1c2fa51.css.map",
+    "main.4a56f16a.js.map": "/simulation-blockchain/static/js/main.4a56f16a.js.map",
+    "453.2242c6aa.chunk.js.map": "/simulation-blockchain/static/js/453.2242c6aa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b1c2fa51.css",
+    "static/js/main.4a56f16a.js"
+  ]
+}
