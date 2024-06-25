@@ -11,7 +11,7 @@ export default function Blocks() {
       <h2 className='text-xl font-bold m-3'>Blocks enregistrées dans la blockchain</h2>
       <div className='flex'>
           {exchain.chain.map((block, index) => (
-            <Card isPressable={true} className='max-w-96 whitespace-nowrap cursor-pointer' key={index} onPress={()=>{setInfoTransaction(
+            <Card isPressable={true} className='max-w-96 whitespace-nowrap cursor-pointer m-2' key={index} onPress={()=>{setInfoTransaction(
               block.transactions
             )}}>
                 <CardHeader>
@@ -30,7 +30,7 @@ export default function Blocks() {
 
           ))}
       </div>
-        {infoTransaction === undefined  ? <div>Pas de transaction</div> : infoTransaction.map((transaction, index) => (
+        {infoTransaction === undefined  ? <div></div> : infoTransaction.map((transaction, index) => (
           <Table key={index}>
             <TableHeader>
               <TableColumn>Transaction {index}</TableColumn>

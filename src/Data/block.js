@@ -47,6 +47,7 @@ class Block {
       const intervalId = setInterval(() => {
         const current = Date.now() // Obtient l'heure actuelle
         this.nonce++ // Incrémente le nonce
+        document.getElementById("nonceResult") === null ? emptyFunction() : document.getElementById("nonceResult").innerText = this.nonce
         document.getElementById("nonceResult") === null ? emptyFunction() : document.getElementById("hashResult").innerText = this.hash
         this.hash = this.calculateHash() // Recalcule le hachage avec le nouveau nonce
         const currentTime = Math.floor((current - start) / 1000) // Calcule le temps écoulé en secondes
