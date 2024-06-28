@@ -8,7 +8,7 @@ Ce travail est basé sur le travail de [viandwi24](https://github.com/viandwi24/
 
 ## Lien du projet
 
-Pour voir le projet directement, vous pouvez clique sur le lien suivant : [Lien du projet](https://bigpurplevan.github.io/simulation-blockchain/)
+Pour voir le projet directement, vous pouvez clique sur le lien suivant : [Lien du projet](https://evandelbecq.github.io/simulation-blockchain/)
 
 ## Installation locale
 ```
